@@ -1,6 +1,5 @@
 package com.dreilly.adb;
 
-import com.dreilly.adb.thrift.AdbService;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.transport.TServerSocket;
@@ -8,13 +7,13 @@ import org.apache.thrift.transport.TServerTransport;
 
 public class Adb {
 
-    static AdbThriftIFace handler;
-    static AdbService.Processor processor;
+    static AdbService handler;
+    static com.dreilly.adb.thrift.AdbService.Processor processor;
 
     public void start() {
 
-        handler = new AdbThriftIFace();
-        processor = new AdbService.Processor(handler);
+        handler = new AdbService();
+        processor = new com.dreilly.adb.thrift.AdbService.Processor(handler);
     try {
         Runnable simple = new Runnable() {
             public void run() {
@@ -28,7 +27,7 @@ public class Adb {
     }
     }
 
-    static void simple(AdbService.Processor processor) {
+    static void simple(com.dreilly.adb.thrift.AdbService.Processor processor) {
         try {
             TServerTransport serverTransport = new TServerSocket(9090);
             TServer server = new TSimpleServer(new TServer.Args(serverTransport).processor(processor));

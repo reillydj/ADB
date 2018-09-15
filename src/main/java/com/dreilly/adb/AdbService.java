@@ -3,7 +3,7 @@ package com.dreilly.adb;
 import com.dreilly.adb.thrift.AdbService;
 import org.apache.thrift.TException;
 
-public class AdbThriftIFace implements AdbService.Iface {
+public class AdbService implements com.dreilly.adb.thrift.AdbService.Iface {
 
     public int get(String id) throws TException {
         return 2;
