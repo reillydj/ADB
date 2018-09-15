@@ -1,7 +1,7 @@
 package com.dreilly.adb;
 
 import com.dreilly.adb.thrift.AdbException;
-import org.apache.thrift.TException;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,17 +22,11 @@ public class AdbService implements com.dreilly.adb.thrift.AdbService.Iface {
         }
     }
 
-    public void put(String id, int value) {
-        
-    }
-
-    public static void main(String[] args) {
-        AdbService service = new AdbService();
-        try {
-            System.out.println(service.get("1"));
-        } catch (TException e) {
-            System.out.println("caught");
+    public void put(String id, int value) throws AdbException {
+        if (StringUtils.isBlank(id)) {
+            throw new AdbException("Record id cannot be blank");
+        } else {
+            backing.put(id, value);
         }
     }
-
 }

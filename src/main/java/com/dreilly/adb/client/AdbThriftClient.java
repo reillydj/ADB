@@ -30,8 +30,9 @@ public class AdbThriftClient {
 
     private static void perform(AdbService.Client client) throws TException
     {
-
-        int product = client.get("1");
+        client.put("1", 3);
+        client.put("2", 5);
+        int product = client.get("2");
         System.out.println("id=" + product);
     }
 }
